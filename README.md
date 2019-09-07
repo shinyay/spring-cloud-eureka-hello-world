@@ -1,4 +1,4 @@
-# Name
+# Spring Cloud Eureka Server for Hello World App
 
 Overview
 
