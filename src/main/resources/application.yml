@@ -1,9 +1,36 @@
 spring:
+  profiles:
+    active: eureka1
+
+---
+
+spring:
+  profiles: default
   application:
     name: registry
 server:
   port: 8761
 eureka:
   client:
-    register-with-eureka: true
+    register-with-eureka: false
     fetch-registry: false
+
+---
+
+spring:
+  profiles: eureka1
+  application:
+    name: registry
+server:
+  port: 8761
+eureka:
+  instance:
+    metadata-map:
+      instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      default-zone: http://localhost:${server.port}/eureka
+  server:
+    wait-time-in-ms-when-sync-empty: 0
